@@ -22,6 +22,7 @@ setup(name='myapp',
       ],
       install_requires=[
           # -*- Extra requirements: -*-
+          'setuptools-git'
       ],
       entry_points="""
       # -*- Entry points: -*-
