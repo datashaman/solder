@@ -1,11 +1,12 @@
 *.pyc
 *.ini
 
-/*.egg-info
+/solder.egg-info/
+/solder.egg-info/paste_deploy_config.ini_tmpl
 /.coverage
-/build
-/bin
-/cover
+/build/
+/bin/
+/cover/
 /distribute-*.tar.gz
-/include
-/lib
+/include/
+/lib/
