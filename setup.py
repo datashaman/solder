@@ -3,15 +3,33 @@ import sys, os
 
 version = '0.0'
 
-setup(name='myapp',
+setup(name='solder',
     version=version,
-    description="",
+    description="Incredibly light-weight template-less web development."
     long_description="""\
+    WTF?  Another one? I think this one's different. You'll see why...
     """,
-    classifiers=[], # Get strings from http://pypi.python.org/pypi?%3Aaction=list_classifiers
+    classifiers=[
+        'Development Status :: 3 - Alpha',
+        'Environment :: Web Environment',
+        'Framework :: Paste',
+        'Intended Audience :: Developers',
+        'License :: OSI Approved :: MIT License',
+        'Natural Language :: English',
+        'Operating System :: OS Independent',
+        'Programming Language :: Python',
+        'Programming Language :: Python :: 2.6',
+        'Topic :: Internet :: WWW/HTTP',
+        'Topic :: Internet :: WWW/HTTP :: Dynamic Content',
+        'Topic :: Internet :: WWW/HTTP :: HTTP Servers',
+        'Topic :: Internet :: WWW/HTTP :: WSGI :: Application',
+        'Topic :: Software Development :: Libraries :: Application Frameworks',
+        'Topic :: Text Processing :: Markup :: HTML',
+        'Topic :: Text Processing :: Markup :: XML',
+    ], # Get strings from http://pypi.python.org/pypi?%3Aaction=list_classifiers
     keywords='',
-    author='',
-    author_email='',
+    author='Marlin Forbes',
+    author_email='marlinf@datashaman.com',
     url='',
     license='',
     packages=find_packages(exclude=['ez_setup', 'examples', 'tests']),
@@ -35,7 +53,7 @@ setup(name='myapp',
     ],
     entry_points={
       'paste.app_factory': [
-          'main = myapp:make_app'
+          'main = solder:make_app'
       ],
       'paste.app_install': [
           'main = pylons.util:PylonsInstaller'
@@ -44,4 +62,4 @@ setup(name='myapp',
           'repoze = repoze.what.plugins.quickstart:add_auth_from_config'
       ],
     }
-    )
+)
