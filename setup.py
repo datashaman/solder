@@ -5,8 +5,8 @@ version = '0.0'
 
 setup(name='solder',
     version=version,
-    description="Incredibly light-weight template-less web development."
-    long_description="""\
+    description="Incredibly light-weight template-less web development.",
+    long_description="""
     WTF?  Another one? I think this one's different. You'll see why...
     """,
     classifiers=[
@@ -36,10 +36,10 @@ setup(name='solder',
     include_package_data=True,
     zip_safe=False,
     dependency_links=[
-        'vendor'
     ],
     install_requires=[
         # -*- Extra requirements: -*-
+        'welder',
         'yolk',
         'pastescript',
         'pastedeploy',

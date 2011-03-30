@@ -7,9 +7,9 @@ from solder.models.auth import make_users, User
 from paste.util.import_string import simple_import
 from paste.httpexceptions import *
 
-import welder
+from welder import weld as w
 def pyquery_weld(data, config={}):
-    welder.weld(this[0], data, config)
+    w(this[0], data, config)
     return this
 
 PyQuery.fn.weld = pyquery_weld
