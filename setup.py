@@ -31,6 +31,7 @@ setup(name='myapp',
         'redisco',
         'pyquery',
         'python-faker',
+        'routes',
     ],
     entry_points={
       'paste.app_factory': [
