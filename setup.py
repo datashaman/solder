@@ -50,6 +50,7 @@ setup(name='solder',
         'pyquery',
         'python-faker',
         'routes',
+        'funkload',
     ],
     entry_points={
       'paste.app_factory': [
