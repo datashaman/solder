@@ -12,9 +12,6 @@ from paste.httpexceptions import *
 
 log = logging.getLogger(__name__)
 
-from solder.models.auth import make_users
-# make_users(10)
-
 def make_auth_middleware(wrap, global_conf, **app_conf):
     from repoze.who.config import make_middleware_with_config
     wrap = make_middleware_with_config(wrap, global_conf,

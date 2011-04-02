@@ -69,7 +69,7 @@ def make_users(number):
     for x in xrange(number):
         name = faker.name.name()
 
-        user = User(username=faker.internet.user_name(),
+        user = User(username=faker.internet.user_name(name),
                 password='password',
                 email=faker.internet.email(name),
                 name=name)

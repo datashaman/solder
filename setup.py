@@ -51,6 +51,7 @@ setup(name='solder',
         'python-faker',
         'routes',
         'funkload',
+        'ropevim',
     ],
     entry_points={
       'paste.app_factory': [

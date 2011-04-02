@@ -1,14 +1,20 @@
 from solder.models.auth import make_users, User
 
+# make_users(5)
 users = User.objects.all()
 
 columns = [
     ('username', 'Username'),
+    ('name', 'Name'),
     ('password', 'Password'),
     ('email', 'Email Address'),
 ]
 
 user = lambda username: User.objects.filter(username=username).first()
+
+def d(v):
+  print v
+  return v
 
 *home():
     title               is 'Welcome!'
