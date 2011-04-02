@@ -12,3 +12,7 @@
 /include/
 /lib/
 /vendor/routes/
+/test/logs/
+/test/*.log
+/test/results/
+/test/reports/

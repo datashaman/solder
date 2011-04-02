@@ -76,5 +76,3 @@ def make_users(number):
         result = user.save()
         if result is not True:
             print result
-
-make_users(20)
