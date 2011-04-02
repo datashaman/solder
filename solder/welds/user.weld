@@ -12,6 +12,10 @@ columns = [
 
 user = lambda username: User.objects.filter(username=username).first()
 
+def trans(user):
+    user.username = fromstring('<a href="/users/%s">%s</a>' % (user.username, user.username))
+    return user.attributes_dict
+
 def d(v):
   print v
   return v
@@ -24,7 +28,7 @@ def d(v):
     h1                  is title
     .table thead th     is [label for _, label in columns]
     .table tbody td     is [fromstring('<span class="%s"/>' % key) for key, _ in columns]
-    .table tbody tr     is [obj.attributes_dict for obj in objects]
+    .table tbody tr     is [trans(obj) for obj in objects]
 
 *record(obj, title):
     title               is title

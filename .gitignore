@@ -2,6 +2,7 @@
 *.ini
 *.cfg
 
+/tags
 /solder.egg-info/
 /solder.egg-info/paste_deploy_config.ini_tmpl
 /.coverage
@@ -16,3 +17,4 @@
 /test/*.log
 /test/results/
 /test/reports/
+/test/funkload.xml*
