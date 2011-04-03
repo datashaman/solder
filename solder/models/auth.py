@@ -1,10 +1,9 @@
 import faker, hashlib
 from repoze.what import adapters
 from redisco import models, containers
+from lxml.etree import fromstring as XML
 
-class Audit(object):
-    created_at = models.DateTimeField(auto_now_add=True)
-    last_modified = models.DateTimeField(auto_now=True)
+from audit import Audit
 
 class Permission(models.Model, Audit):
     name = models.Attribute(required=True, unique=True)
@@ -45,6 +44,14 @@ class User(models.Model, Audit):
             perms += group.permissions
         return perms
 
+    def link(self, text='username'):
+        return XML('<a href="/users/%s">%s</a>' %\
+                (self.username, getattr(self, text)))
+
+    @staticmethod
+    def fetch_by_username(username):
+        return User.objects.filter(username=username).first()
+
 class AuthPlugin(adapters.BaseSourceAdapter):
     def authenticate(self, environ, identity):
         try:
@@ -63,8 +70,8 @@ class AuthPlugin(adapters.BaseSourceAdapter):
             identity['user'] = user
 
 def make_users(number):
-    for obj in User.objects.all():
-        obj.delete()
+    for user in User.objects.all():
+        user.delete()
 
     for x in xrange(number):
         name = faker.name.name()

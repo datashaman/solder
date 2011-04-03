@@ -1,6 +1,5 @@
 import re, logging
 
-from lxml.etree import fromstring
 from string import Template
 from pyquery import PyQuery
 from routes.base import Route
@@ -49,14 +48,15 @@ class Solder(object):
 
         self.parse('user')
 
+        self.globals = globals().copy()
+
+        self.script = compile(self.python, '<%s:global>' % self.source, 'exec')
+        exec(self.script, self.globals)
+
     def __call__(self, environ, start_response):
         status = '200 OK'
         headers = [('Content-Type', 'text/html')]
         start_response(status, headers)
-
-        g = globals().copy()
-        self.script = compile(self.python, '<%s:global>' % self.source, 'exec')
-        exec(self.script, g)
 
         for path in self.paths:
             matched = path.match(environ)
@@ -74,15 +74,15 @@ class Solder(object):
                 for key, value in matched.groupdict().items():
                     script = compile("%s = '%s'" % (key, value),\
                             '<path:%s> in %s' % (path, self.source), 'exec')
-                    exec(script, g, l)
+                    exec(script, self.globals, l)
 
                 for x, arg in enumerate(path.arguments):
                     script = compile('%s = %s' % (path.macro.parameters[x],\
                             arg), '<argument:%s> in %s' % (arg, path.macro.name), 'exec')
-                    exec(script, g, l)
+                    exec(script, self.globals, l)
 
                 for selector, provider in path.macro.decorators:
-                    pq(selector).weld(eval(provider, g, l))
+                    pq(selector).weld(eval(provider, self.globals, l))
 
                 return pq.__html__()
         return HTTPNotFound()

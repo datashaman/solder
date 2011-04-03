@@ -1,7 +1,7 @@
+from lxml.etree import fromstring as XML
 from solder.models.auth import make_users, User
 
 # make_users(5)
-users = User.objects.all()
 
 columns = [
     ('username', 'Username'),
@@ -10,30 +10,32 @@ columns = [
     ('email', 'Email Address'),
 ]
 
-user = lambda username: User.objects.filter(username=username).first()
-
 def trans(user):
-    user.username = fromstring('<a href="/users/%s">%s</a>' % (user.username, user.username))
+    user.username = user.link()
     return user.attributes_dict
 
 def d(v):
   print v
   return v
 
+u = User.fetch_by_username
+users = User.objects.all()
+
 *home():
     title               is 'Welcome!'
 
-*table(objects, columns, title):
+*table(objects, columns, title, page=1):
     title               is title
     h1                  is title
     .table thead th     is [label for _, label in columns]
-    .table tbody td     is [fromstring('<span class="%s"/>' % key) for key, _ in columns]
-    .table tbody tr     is [trans(obj) for obj in objects]
+    .table tbody td     is [XML('<span class="%s"/>' % key) for key, _ in columns]
+    .table tbody tr     is map(trans, objects)
 
 *record(obj, title):
     title               is title
-    .record tr          is [dict(label=label, value=obj.attributes_dict[col]) for col, label in columns]
+    .record tr          is [dict(label=label, value=getattr(obj, col)) for col, label in columns]
 
-/users/(?P<username>.+) is "record" with record(user(username), 'User %s' % user(username).username)
+/users/(?P<username>.+) is "record" with record(u(username), 'User %s' % u(username).username)
+
 /users                  is "table" with table(users, columns, 'Users')
-/$                      is "home" with home()
+/                       is "home" with home()

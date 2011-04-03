@@ -4,14 +4,14 @@ from funkload.FunkLoadTestCase import FunkLoadTestCase
 class Users(FunkLoadTestCase):
     def load(self, datasets):
         for dataset in datasets:
-            path = os.path.join(os.path.dirname(__file__), 'datasets/%s.csv')
+            path = os.path.join(os.path.dirname(__file__), 'datasets/%s.csv' %\
+                    dataset)
             with open(path) as f:
                 pass
 
     def setUp(self):
         self.base = 'http://localhost:8004'
-        print vars(self)
-        self.load(self.get_confList('main', 'datasets'))
+        self.load(self.conf_getList('main', 'datasets'))
 
     def test_table(self):
         self.get(self.base + '/users', description='users')
