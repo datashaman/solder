@@ -1,0 +1,9 @@
+[submodule "vendor/beaker_extensions"]
+	path = vendor/beaker_extensions
+	url = https://github.com/bbangert/beaker_extensions.git
+[submodule "vendor/weld"]
+	path = vendor/weld
+	url = https://github.com/hij1nx/weld.git
+[submodule "vendor/requirejs"]
+	path = vendor/requirejs
+	url = https://github.com/jrburke/requirejs.git

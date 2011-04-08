@@ -1,15 +1,24 @@
-import re, logging
+import re, logging, inspect
 
 from string import Template
 from pyquery import PyQuery
-from routes.base import Route
-from paste.httpexceptions import *
+from routes.mapper import Mapper
 
 import collections, os, textwrap, sys, logging
+import simplejson as json
+from webob import Request, Response
 from paste.util.import_string import simple_import
 from paste.httpexceptions import *
+from paste.deploy.converters import asbool
 
+from beaker.cache import CacheManager
+
+cache = CacheManager(type='redis', url='localhost:6379', lock_dir='./data')
 log = logging.getLogger(__name__)
+url = None
+app = None
+
+from routes.util import url_for
 
 def make_auth_middleware(wrap, global_conf, **app_conf):
     from repoze.who.config import make_middleware_with_config
@@ -19,25 +28,13 @@ def make_auth_middleware(wrap, global_conf, **app_conf):
             app_conf['who.log_level'])
     return wrap
 
-from welder import weld as w
-def pyquery_weld(data, config={}):
-    w(this[0], data, config)
-    return this
-
-PyQuery.fn.weld = pyquery_weld
-
-match_error = Template("""
-$name definition is incorrect.
-
-Definition is: "$definition"
-Must match pattern: "$pattern"
-""")
-
-class Solder(object):
+class Solder(Mapper):
     source = ''
     python = ''
     macros = {}
     paths = []
+
+    request = None
 
     def __init__(self, global_conf, **app_conf):
         self.global_conf = global_conf
@@ -46,156 +43,83 @@ class Solder(object):
         self.config = global_conf.copy()
         self.config.update(app_conf)
 
-        self.parse('user')
+        debug = asbool(self.config['debug'])
+        super(Solder, self).__init__(directory='./solder/controllers',
+                always_scan=debug, explicit=False)
 
-        self.globals = globals().copy()
-
-        self.script = compile(self.python, '<%s:global>' % self.source, 'exec')
-        exec(self.script, self.globals)
+        self.debug = debug
+        self.minimization = True
+        self.connect_routes()
 
     def __call__(self, environ, start_response):
-        status = '200 OK'
-        headers = [('Content-Type', 'text/html')]
-        start_response(status, headers)
+        req = Request(environ)
+        res = Response(request=req, environ=environ, status=200,\
+            content_type='text/html')
 
-        for path in self.paths:
-            matched = path.match(environ)
-            if matched:
-                log.debug('Matched path %s against %s'\
-                    % (path, environ['PATH_INFO']))
+        urlvars = req.urlvars.copy()
+        if 'controller' in urlvars and 'action' in urlvars:
+            if urlvars['action'].startswith('_'):
+                start_response(status, headers)
+                return HTTPNotFound()
 
-                with open('solder/views/%s.html' % path.view) as f:
-                    source = f.read()
+            module_reference = 'solder.controllers.%s' % urlvars['controller']
+            module = simple_import(module_reference)
 
-                pq = PyQuery(source)
+            action = getattr(module, urlvars['action'])
 
-                l = {}
+            if inspect.isfunction(action):
+                del urlvars['controller']
+                del urlvars['action']
 
-                for key, value in matched.groupdict().items():
-                    script = compile("%s = '%s'" % (key, value),\
-                            '<path:%s> in %s' % (path, self.source), 'exec')
-                    exec(script, self.globals, l)
+                # TODO something with format
+                if 'format' in urlvars:
+                    del urlvars['format']
 
-                for x, arg in enumerate(path.arguments):
-                    script = compile('%s = %s' % (path.macro.parameters[x],\
-                            arg), '<argument:%s> in %s' % (arg, path.macro.name), 'exec')
-                    exec(script, self.globals, l)
+                content = action(**urlvars)
 
-                for selector, provider in path.macro.decorators:
-                    pq(selector).weld(eval(provider, self.globals, l))
+                if req.is_xhr:
+                    if isinstance(content, dict) and 'welds' in content:
+                        del content['welds']
+                    res.body = json.dumps(content)
+                    res.content_type = 'application/json'
+                elif isinstance(content, dict) and '_template' in content:
+                    res.body = render.render(content['_template'], content,
+                            content['_weld'], content['_layout'])
+            else:
+                res.status = 404
+                res.body = 'Page not found'
+        else:
+            res.status = 404
+            res.body = 'Page not found'
 
-                return pq.__html__()
-        return HTTPNotFound()
+        return res(environ, start_response)
 
-    def parse(self, weld):
-        self.source = weld
-        self.python = ''
-        self.macros = {}
-        self.paths = []
-
-        with open('solder/welds/%s.weld' % weld) as f:
-            l = f.readline()
-            while not l.startswith(('*', '/')):
-                self.python += l
-                l = f.readline()
-
-            while not l.startswith('/'):
-                if l.strip() == '':
-                    l = f.readline()
-                    continue
-
-                assert l.startswith('*'), 'Expected a macro definition, got "%s"' % l # Must be a macro
-
-                macro = Macro()
-
-                pattern = r'^\*(?P<name>[^\s(]+)\((?P<parameters>[^)]*)\):$'
-                matched = re.match(pattern, l.strip())
-
-                assert matched, match_error.substitute(name='Macro',\
-                        pattern=pattern, definition=l.strip())
-
-                macro.name = matched.group('name')
-                self.macros[macro.name] = macro
-
-                macro.parameters = [a.strip() for a in matched.group('parameters').split(',')]
-
-                macro.decorators = []
-
-                l = f.readline()
-
-                pattern = r'^    (?P<selector>[^\s].+)\s+is\s+(?P<provider>.*)\s*$'
-                matched = re.match(pattern, l)
-
-                assert matched, match_error.substitute(name='Decorator',\
-                        pattern=pattern, definition=l)
-
-                while matched:
-                    selector, provider = matched.groups(['selector',\
-                        'provider'])
-                    provider = compile(provider, '<provider:%s> in %s' %
-                            (selector, macro.name), 'eval')
-                    macro.decorators.append(matched.groups(['selector', 'provider']))
-
-                    l = f.readline()
-                    matched = re.match(pattern, l)
-
-            while l and l != '':
-                if l.strip() == '':
-                    l = f.readline()
-                    continue
-
-                assert l[0] == '/' # Must be path definitions till the end of the file
-
-                pattern =\
-                r'^(?P<pattern>[^\s]*)\s+is\s+"(?P<view>\w+)"\s+with\s+(?P<macro>[^\s()]+)\((?P<arguments>.*)\)$'
-                matched = re.match(pattern, l.strip())
-
-                assert matched, match_error.substitute(name='Path',\
-                        pattern=pattern, definition=l.strip())
-
-                path = Path()
-                path.pattern, path.view, macro, arguments = matched.groups(['pattern',\
-                    'view', 'macro', 'arguments'])
-                path.macro = self.macros[macro]
-                path.arguments = [s.strip()\
-                        for s in matched.group('arguments').split(',')]
-                if path.arguments == ['']:
-                    path.arguments = []
-
-                self.paths.append(path)
-
-                l = f.readline()
-
-class Macro(object):
-    name = ''
-    params = []
-    decorators = []
-
-class Decorator(object):
-    selector = ''
-    provider = '' # Python, uses params from container macro
-
-class Path(object):
-    _pattern = ''
-    macro = ''
-    view = ''
-    arguments = []
-
-    @property
-    def pattern(self):
-        return self._pattern
-
-    @pattern.setter
-    def pattern(self, value):
-        self._pattern = value
-        self._re = re.compile(self._pattern)
-
-    def match(self, environ):
-        return self._re.match(environ['PATH_INFO'])
-
-    def __repr__(self):
-        return self.pattern
+    def connect_routes(self):
+        self.collection('users', 'user', member_prefix='/{username}', formatted=False)
+        self.connect('home', '', controller='home')
 
 def make_app(global_conf, **app_conf):
+    global app
+
     app = wrap = Solder(global_conf, **app_conf)
+
+    from routes.middleware import RoutesMiddleware
+    wrap = RoutesMiddleware(wrap, app)
+
+    if False and app.debug:
+        from repoze.profile.profiler import AccumulatingProfileMiddleware
+        wrap = AccumulatingProfileMiddleware(
+                wrap,
+                log_filename='./logs/profile.log',
+                discard_first_request=True,
+                flush_at_shutdown=True,
+                path='/_profile_'
+        )
+
+    from paste.fileapp import DirectoryApp
+    public = DirectoryApp('./solder/public')
+
+    from paste.cascade import Cascade
+    wrap = Cascade([public, wrap], [403, 404])
+
     return wrap

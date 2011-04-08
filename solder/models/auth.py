@@ -2,19 +2,20 @@ import faker, hashlib
 from repoze.what import adapters
 from redisco import models, containers
 from lxml.etree import fromstring as XML
+from webhelpers.html.tags import link_to
 
 from audit import Audit
 
-class Permission(models.Model, Audit):
+class Permission(Audit, models.Model):
     name = models.Attribute(required=True, unique=True)
     label = models.Attribute(required=True, unique=True)
 
-class Group(models.Model, Audit):
+class Group(Audit, models.Model):
     name = models.Attribute(required=True, unique=True)
     label = models.Attribute(required=True, unique=True)
     permissions = models.ListField(Permission)
 
-class User(models.Model, Audit):
+class User(Audit, models.Model):
     username = models.Attribute(required=True, unique=True)
     password = models.Attribute(required=True)
     email = models.Attribute(required=True, unique=True)
@@ -44,12 +45,14 @@ class User(models.Model, Audit):
             perms += group.permissions
         return perms
 
-    def link(self, text='username'):
-        return XML('<a href="/users/%s">%s</a>' %\
-                (self.username, getattr(self, text)))
+    @property
+    def link(self):
+        from solder import url
+        return link_to(self.username, url.current(controller='user',\
+            action='show', id=self.username))
 
     @staticmethod
-    def fetch_by_username(username):
+    def get(username):
         return User.objects.filter(username=username).first()
 
 class AuthPlugin(adapters.BaseSourceAdapter):
