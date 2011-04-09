@@ -2,11 +2,12 @@ import simplejson as json
 from lxml.etree import tostring
 from pyquery import PyQuery
 
-from welder import weld as w
+from welder import Strategist
+strategist = Strategist()
 
 def pyquery_weld(data, config={}):
     if len(this):
-        w(this[0], data, config)
+        strategist.set(this[0], data)
     return this
 
 PyQuery.fn.weld = pyquery_weld

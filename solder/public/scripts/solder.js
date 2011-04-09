@@ -34,10 +34,10 @@ jQuery.fn.solder = function(source, map) {
 };
 
 scripts = {
-    link_to: function(p, e, k, v) {
+    link_to: function(v) {
         return $('<a href="' + v.url + '">' + v.username + '</a>').html();
     },
-    email_to: function(p, e, k, v) {
+    email_to: function(v) {
         return $('<a href="mailto:' + v.email + '">' + v.email + '</a>').html();
     }
 }

@@ -37,7 +37,6 @@ setup(name='solder',
     zip_safe=False,
     dependency_links=[
         './dist',
-        'vendor/welder/setup.py#egg=welder',
     ],
     install_requires=[
         'pastescript',
@@ -47,7 +46,6 @@ setup(name='solder',
         'simplejson',
         'webob',
         'beaker',
-        'welder',
         'yolk',
         'beaker_extensions',
         'webhelpers',
@@ -57,7 +55,7 @@ setup(name='solder',
         'repoze.what-quickstart',
         'faker',
     ],
-    test_requires=[
+    tests_require=[
         'faker',
     ],
 

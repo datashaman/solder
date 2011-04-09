@@ -10,6 +10,7 @@ Dozer.egg-info/entry_points.txt
 Dozer.egg-info/not-zip-safe
 Dozer.egg-info/requires.txt
 Dozer.egg-info/top_level.txt
+dist/Dozer-0.2dev-20110406.tar.gz
 dozer/__init__.py
 dozer/leak.py
 dozer/logview.py
