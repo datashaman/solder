@@ -85,14 +85,12 @@ metadata = [
     dict(name='username', label='Username'),
     dict(name='name', label='Name'),
     dict(name='password', label='Password'),
-    dict(name='url', label='URL', display=False),
-    dict(name='email', label='Email Address', display=False),
+    dict(name='url', label='URL'),
+    dict(name='email', label='Email Address'),
 ]
 
-url = lambda u: url_for(controller='user', action='edit', username=u.username)
-
 formatters = dict(
-    url=lambda u, f: url(u),
+    url=lambda u, f: url_for(controller='user', action='edit', username=u.username),
     password=lambda u, f: '******',
 )
 

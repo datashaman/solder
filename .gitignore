@@ -22,3 +22,5 @@
 .hg*
 /solder/build
 /solder/public/styles
+/vendor/dozer
+funkload.*

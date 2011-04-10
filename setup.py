@@ -56,9 +56,11 @@ setup(name='solder',
         'redisco',
         'repoze.what-quickstart',
         'faker',
+        'funkload',
     ],
-    test_requires=[
+    tests_require=[
         'faker',
+        'funkload',
     ],
 
     # install_requires=[
