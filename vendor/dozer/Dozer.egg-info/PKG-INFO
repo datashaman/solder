@@ -1,6 +1,6 @@
 Metadata-Version: 1.0
 Name: Dozer
-Version: 0.2dev-20110406
+Version: 0.2dev-20110410
 Summary: WSGI Middleware version of the CherryPy memory leak debugger
 Home-page: http://www.pylonshq.com/
 Author: Ben Bangert
