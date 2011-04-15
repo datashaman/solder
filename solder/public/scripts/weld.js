@@ -242,7 +242,7 @@
                 obj = value[key];
                 target = ops.match(template, element, key, obj);
                 if (target) {
-                  ops.traverse(template, target, key, obj);
+                  ops.set(template, target, key, obj);
                 }
               }
             }
@@ -337,7 +337,7 @@
         }
 
         if(element) {
-          if(element.querySelectorAll) {
+          if(element.querySelector) {
             return element.querySelector('.' + key + ',#' + key + ',[name="' + key + '"]');
           }
           else {

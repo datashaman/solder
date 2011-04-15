@@ -7,3 +7,6 @@
 [submodule "vendor/requirejs"]
 	path = vendor/requirejs
 	url = https://github.com/jrburke/requirejs.git
+[submodule "vendor/aristo-jquery-ui-theme"]
+	path = vendor/aristo-jquery-ui-theme
+	url = https://github.com/taitems/Aristo-jQuery-UI-Theme.git

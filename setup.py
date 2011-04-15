@@ -54,6 +54,7 @@ setup(name='solder',
         'redisco',
         'repoze.what-quickstart',
         'faker',
+        'weberror',
     ],
     tests_require=[
         'faker',
