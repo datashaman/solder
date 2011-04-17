@@ -1,48 +1,54 @@
+# -*- coding: utf-8 -*-
+
 import logging
-from solder.render import render, template
-from webhelpers.html.tags import link_to
-from webhelpers.html.tools import mail_to
-from decorator import decorator
-from paste.debug.profile import profile_decorator
-
-from solder.controllers import _index, _record
-
-from solder.models.auth import make_users, User
-
 log = logging.getLogger(__name__)
 
-metadata = [
-    dict(name='url', label='URL', display=False),
-
-    dict(name='username', display=False),
-    dict(name='link_to', label='Username'),
-
-    dict(name='name', label='Name'),
-    dict(name='password', label='Password'),
-
-    dict(name='email', display=False),
-    dict(name='email_to', label='Email Address'),
-]
-
 from solder import url_for
+from solder.render import template
+from solder.controllers import _index, _record
+from solder.models.auth import User
+
 def filter_user(user, filter):
-    user = user.attributes_dict
-    user['url'] = url_for(controller='user', action='edit',
-            username=user['username'])
-    return user
+    result = user.attributes_dict
+    result['url'] = url_for(controller='user', action='edit', username=user.username)
+    result['password'] = '******'
+    return result
 
 @template('index')
 def index():
-    result = _index(User, {}, metadata, 'Users', filter_func=filter_user,
-            summary='Users')
+    result = _index('Users', User, {}, [
+            dict(name='url', display=False),
+            dict(name='username', display=False),
+            dict(name='email', display=False),
+
+            dict(name='link_to', server="link_to(record['url'], record['username'])", label='Username'),
+            dict(name='name'),
+            dict(name='email_to', server="email_to(record['email'])", label='Email Address'),
+            dict(name='password'),
+        ], filter_func=filter_user, summary='Users')
     return result
 
 @template('show')
 def show(username):
-    return _record(User, dict(username=username), metadata,
-        lambda user: 'User %s' % username, filter_func=filter_user)
+    result = _record('Show User', User, dict(username=username), [
+            dict(name='url', display=False),
+            dict(name='email', display=False),
+
+            dict(name='name'),
+            dict(name='email_to', server="email_to(record['email'])", label='Email Address'),
+            dict(name='username'),
+            dict(name='password'),
+        ], filter_func=filter_user)
+    return result
 
 @template('edit')
 def edit(username):
-    return _record(User, dict(username=username), metadata,
-        lambda user: 'Edit User %s' % username, filter_func=filter_user)
+    result = _record('Edit User', User, dict(username=username), [
+            dict(name='url', display=False),
+
+            dict(name='username'),
+            dict(name='name'),
+            dict(name='password'),
+            dict(name='email'),
+        ], filter_func=filter_user)
+    return result

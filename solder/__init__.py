@@ -11,6 +11,7 @@ from paste.util.import_string import simple_import
 from paste.httpexceptions import *
 from paste.deploy.converters import asbool
 
+request = None
 cache = None
 log = None
 url = None
@@ -57,8 +58,9 @@ class Solder(Mapper):
                 del content['welds']
             data = content.copy()
             for name, value in data.items():
-                if isinstance(value, collections.Callable):
-                    data[name] = value()
+                while inspect.isfunction(value):
+                    value = value()
+                data[name] = value
             res.body = json.dumps(data)
             res.content_type = 'application/json'
         elif isinstance(content, dict) and '_template' in content:
@@ -74,14 +76,15 @@ class Solder(Mapper):
         return res
 
     def __call__(self, environ, start_response):
-        global cache
+        global cache, request
+
         cache = environ['beaker.cache']
 
         app_cache = cache.get_cache(__name__)
 
-        req = Request(environ)
+        request = Request(environ)
 
-        urlvars = req.urlvars.copy()
+        urlvars = request.urlvars.copy()
         if 'controller' in urlvars and 'action' in urlvars:
             if urlvars['action'].startswith('_'):
                 start_response(status, headers)
@@ -99,7 +102,7 @@ class Solder(Mapper):
                 del urlvars['action']
 
                 cache_key['hash'] = str(urlvars)
-                cache_key['is_xhr'] = req.is_xhr
+                cache_key['is_xhr'] = request.is_xhr
 
                 # TODO something with format
                 if 'format' in urlvars:
@@ -110,7 +113,7 @@ class Solder(Mapper):
 
                 res = app_cache.get(key=key,
                         createfunc=lambda: self._create_content(action,\
-                            urlvars, req.is_xhr))
+                            urlvars, request.is_xhr))
             else:
                 res = app_cache.get(key='not-found', createfunc=self._create_not_found)
         else:

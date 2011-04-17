@@ -49,8 +49,10 @@ bench-app:
 clean:
 	-find . "(" -name "*~" -or  -name ".#*" -or  -name "*.pyc" ")" -print0 | xargs -0 rm -f
 
+develop: # update
+	-(find vendor -mindepth 1 -maxdepth 1 | xargs -Ifoobar -t bash -c "if [ -e foobar/setup.py ]; then cd foobar; echo "foobar"; python setup.py develop; fi")
+	-python setup.py develop
+
 update:
-	# git pull && git submodule update
-	python setup.py develop
-	find vendor -mindepth 1 -maxdepth 1 | xargs -n 1 -Ifoobar -t bash -c "if [ -e foobar/setup.py ]; then cd foobar; python setup.py develop; fi"
-	git submodule summary
+	-git pull origin master && git submodule update
+	-git submodule summary

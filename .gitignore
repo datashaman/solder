@@ -23,3 +23,5 @@ funkload.*
 .hg*
 /solder/build
 /solder/public/styles
+/solder/public/images/icons/source
+/vendor/dozer

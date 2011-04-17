@@ -10,3 +10,9 @@
 [submodule "vendor/aristo-jquery-ui-theme"]
 	path = vendor/aristo-jquery-ui-theme
 	url = https://github.com/taitems/Aristo-jQuery-UI-Theme.git
+[submodule "vendor/redisco"]
+	path = vendor/redisco
+	url = git@github.com:datashaman/redisco.git
+[submodule "vendor/welder"]
+	path = vendor/welder
+	url = ../welder

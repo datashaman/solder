@@ -1,72 +1,107 @@
-import collections, inspect
+import collections, inspect, logging
+from pyquery import PyQuery
 from lxml.etree import fromstring as XML
-from solder import url_for
+import solder
+from redisco.models.base import ModelBase
+from nose.tools import *
 
-_displayed = lambda m: [c for c in m if c.get('display', True) is not False]
+log = logging.getLogger(__name__)
+_d = lambda f, *a, **k: f(*a, **k) # log.debug('%s %s %s' % (f, a, k)) and f(*a, **k)
 
-def callable(func):
-    def _callable(self):
-        value = func(self)
-        if inspect.isfunction(value):
-            return value(self)
-        else:
-            return value
-    return decorator(_callable)
+_imeta = lambda m: dict((c['name'], c) for c in m)
+_displayed = lambda m: [c['name'] for c in m if c.get('display', True) is not False]
 
-def _call_if_func(f, *args, **kwargs):
-    return f(*args, **kwargs) if isinstance(f, collections.Callable) else f
+_server_scripts = lambda m: dict((c['name'], c['server']) for c in m if 'server' in c)
+_client_scripts = lambda m: dict((c['name'], c['client']) for c in m if 'client' in c)
 
-def _index(model, filter, metadata, title, filter_func=None, caption=None, summary=None):
-    cif = lambda x: _call_if_func(x, model, filter)
+def _isa(model, klass):
+    ok_(isinstance(model, klass), '%s is not a %s' % (model.__class__.__name__, klass.__name__))
 
-    displayed = _displayed(metadata)
+def _label(model, col):
+    _isa (model, ModelBase)
+    _isa (col, dict)
 
-    title = cif(title)
-    rows = lambda: model.objects.filter(**filter).all()
+    label = col.get('label', None)
+    if label is None and col['name'] in model._attributes.keys():
+        label = model[col['name']].label
+    if label is None:
+        label = col['name'].capitalize()
+    return label
 
-    if filter_func is not None:
-        producer = lambda: map(lambda r: filter_func(r, filter), rows())
-    else:
-        producer = rows
+def _apply_scripts(scripts, records):
+    _isa (scripts, dict)
+    ok_ (inspect.isfunction(records), '%s is not a function' % records)
 
-    result = dict(
-        caption = cif(caption),
-        summary = cif(summary),
-        rows = producer,
+    def link_to(href, text):
+        return '<a href="%s">%s</a>' % (href, text)
+
+    def email_to(email, text=None):
+        if text is None:
+            text = email
+        return link_to('mailto:%s' % email, text)
+
+    records = records()
+    for record in records:
+        for column, script in scripts.items():
+            record[column] = eval(script)
+    return records
+
+def _apply_filter_func(filters, filter_func, records):
+    return records if filter_func is None else lambda: map(lambda r: filter_func(r, filters), records)
+
+def _records(model, filters, metadata, filter_func=None, page=1, page_size=10,
+        **result):
+    start = (page - 1) * page_size
+    end = start + page_size - 1
+
+    server_scripts = _server_scripts(metadata)
+
+    records = lambda: _apply_scripts(server_scripts,
+            _apply_filter_func(filters, filter_func,
+            model.objects.filter(**filters)[start:end]))
+
+    def assign_label(c):
+        c['label'] = _label(model, c)
+        return c
+
+    metadata = map(assign_label, metadata)
+
+    result.update(dict(
+        model = model.__name__,
+        filters = filters,
+        start = start,
+        end = end,
+        records = records,
+        metadata = _imeta(metadata),
+        displayed = _displayed(metadata),
+        scripts = _client_scripts(metadata),
+    ))
+    return result
+
+def _index(title, model, filters, metadata, filter_func=None, *args, **kwargs):
+    result =_records(model, filters, metadata, filter_func, *args, **kwargs)
+    result.update(dict(
         welds = [
             ('title or h1', title),
-            ('thead th', [c['label'] for c in displayed]),
-            ('tbody td', [XML('<span class="%s"/>' % c['name']) for c in displayed]),
+            ('thead th', [result['metadata'][c]['label'] for c in result['displayed']]),
+            ('tbody td', [XML('<span class="%s"/>' % c) for c in\
+                result['displayed']]),
         ],
         sources = [
-            ('tbody tr', url_for(controller='user', action='index')),
+            ('tbody tr', solder.url_for(action='index')),
         ],
-        metadata = metadata
-    )
+    ))
 
     return result
 
-def _record(model, filter, metadata, title, filter_func=None):
-    record = model.objects.filter(**filter).first()
-
-    displayed = _displayed(metadata)
-
-    if filter_func is not None:
-        record = filter_func(record, filter)
-
-    result = dict(
-        record = record,
-
-        title = title(record) if inspect.isfunction(title) else title,
-        rows = lambda: map(lambda col: dict(label=col['label'],
-            value=record.get(col['name'], None)), displayed),
+def _record(title, model, filters, metadata, filter_func=None, *args, **kwargs):
+    result =_records(model, filters, metadata, filter_func, *args, **kwargs)
+    result.update(dict(
         welds = [
             ('title or legend', title),
+            ('.record li', [dict(label=result['metadata'][c]['label'],
+                value=result['records']()[0].get(c, '')) for c in
+                result['displayed']]),
         ],
-        sources = [
-            ('.record li', url_for(action='show', **filter)),
-        ],
-        metadata = metadata
-    )
-
+    ))
     return result

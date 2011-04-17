@@ -1,0 +1,517 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"><html xmlns="http://www.w3.org/1999.xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Nose Test Results - nosetests</title><link rel="stylesheet" type="text/css" href="/themes/aristo/jquery-ui-1.8.7.custom.css"></link><link rel="stylesheet" type="text/css" href="/styles/tests.css"></link></head><body><div id="results" class="ui-widget"><div class="ui-widget-header"><h3>Results for nosetests</h3><ul><li><button class="ui-button ui-widget ui-state-default ui-corner-all" href="#successes"><img src="/images/icons/48x48/green.png"></img><span class="ui-button-text">3/15
+            (20%)
+        </span></button></li><li><button class="ui-button ui-widget ui-state-default ui-corner-all" href="#failures"><img src="/images/icons/48x48/red.png"></img><span class="ui-button-text">2/15
+            (13%)
+        </span></button></li><li><button class="ui-button ui-widget ui-state-default ui-corner-all" href="#errors"><img src="/images/icons/48x48/orange.png"></img><span class="ui-button-text">10/15
+            (67%)
+        </span></button></li><li><button class="ui-button ui-widget ui-state-default ui-corner-all" href="#skipped"><img src="/images/icons/48x48/blue.png"></img><span class="ui-button-text">0/15
+            (0%)
+        </span></button></li></ul></div><div class="ui-widget-content"><ul><li class="testcase"><div class="name">test_alias</div><div class="classname">test.test_welder.TestWelder</div><div class="time">0</div><div class="error"><div class="type">exceptions.TypeError</div><div class="message">Only processing instructions and comments can be siblings of the root element
+</div><div class="log"><pre>
+welder: DEBUG: STRATEGY: SequenceDataStrategy for ".contact" : "({'name': 'hij1nx', 'title': 
+'code exploder'}, {'name': 'tmpvar', 'title': 'code pimp'})" on "&lt;ul id="contacts-alias" 
+class="contacts"&gt;&lt;li class="contact"&gt;&lt;span class="foo"&gt;My Name&lt;/span&gt;&lt;p class="title"&gt;Leet 
+Developer&lt;/p&gt;&lt;/li&gt;&lt;/ul&gt;" with {'alias': {'name': 'foo', 'title': 'title'}}
+welder: DEBUG: 
+STRATEGY: MappingDataStrategy for ".contact" : "{'name': 'hij1nx', 'title': 'code exploder'}" on 
+"&lt;ul id="contacts-alias" class="contacts"&gt;&lt;li class="contact"&gt;&lt;span class="foo"&gt;My Name&lt;/span&gt;&lt;p 
+class="title"&gt;Leet Developer&lt;/p&gt;&lt;/li&gt;&lt;/ul&gt;" with {'alias': {'name': 'foo', 'title': 
+'title'}}
+welder: DEBUG: ALIAS: name -&gt; foo
+welder: DEBUG: SELECT: foo from &lt;ul 
+id="contacts-alias" class="contacts"&gt;&lt;li class="contact"&gt;&lt;span class="foo"&gt;My Name&lt;/span&gt;&lt;p 
+class="title"&gt;Leet Developer&lt;/p&gt;&lt;/li&gt;&lt;/ul&gt;
+welder: DEBUG: SET: "foo" : "hij1nx" on &lt;span 
+class="foo"&gt;My Name&lt;/span&gt;
+welder: DEBUG: SELECT: title from &lt;ul id="contacts-alias" 
+class="contacts"&gt;&lt;li class="contact"&gt;&lt;span class="foo"&gt;hij1nx&lt;/span&gt;&lt;p class="title"&gt;Leet 
+Developer&lt;/p&gt;&lt;/li&gt;&lt;/ul&gt;
+welder: DEBUG: SET: "title" : "code exploder" on &lt;p class="title"&gt;Leet 
+Developer&lt;/p&gt;
+welder: DEBUG: RESULT: &lt;ul id="contacts-alias" class="contacts"&gt;&lt;li 
+class="contact"&gt;&lt;span class="foo"&gt;hij1nx&lt;/span&gt;&lt;p class="title"&gt;code exploder&lt;/p&gt;&lt;/li&gt;&lt;/ul&gt;
+</pre></div></div></li><li class="testcase"><div class="name">test_alias_element</div><div class="classname">test.test_welder.TestWelder</div><div class="time">0</div><div class="error"><div class="type">exceptions.TypeError</div><div class="message">Only processing instructions and comments can be siblings of the root element
+</div><div class="log"><pre>
+welder: DEBUG: STRATEGY: SequenceDataStrategy for ".contact" : "({'name': 'hij1nx', 'title': 
+'code exploder'}, {'name': 'tmpvar', 'title': 'code pimp'})" on "&lt;ul id="contacts-alias-opt-out" 
+class="contacts"&gt;&lt;li class="contact"&gt;&lt;span class="foo"&gt;My Name&lt;/span&gt;&lt;p class="title"&gt;Leet 
+Developer&lt;/p&gt;&lt;/li&gt;&lt;/ul&gt;" with {'alias': {'name': &lt;function alternate_name at 0x1a9db18&gt;}}
+welder: 
+DEBUG: STRATEGY: MappingDataStrategy for ".contact" : "{'name': 'hij1nx', 'title': 'code 
+exploder'}" on "&lt;ul id="contacts-alias-opt-out" class="contacts"&gt;&lt;li class="contact"&gt;&lt;span 
+class="foo"&gt;My Name&lt;/span&gt;&lt;p class="title"&gt;Leet Developer&lt;/p&gt;&lt;/li&gt;&lt;/ul&gt;" with {'alias': {'name': 
+&lt;function alternate_name at 0x1a9db18&gt;}}
+welder: DEBUG: ALIAS: name -&gt; &lt;function alternate_name at 
+0x1a9db18&gt;
+welder: DEBUG: ALIAS: &lt;function alternate_name at 0x1a9db18&gt; is callable, returned 
+&lt;Element span at 0x1ab8830&gt;
+welder: DEBUG: ALIAS: append element &lt;span class="foo"&gt;My 
+Name&lt;/span&gt;
+welder: DEBUG: STRATEGY: AtomDataStrategy for "name" : "&lt;Element span at 0x1ab8830&gt;" 
+on "&lt;ul id="contacts-alias-opt-out" class="contacts"&gt;&lt;li class="contact"&gt;&lt;span class="foo"&gt;My 
+Name&lt;/span&gt;&lt;p class="title"&gt;Leet Developer&lt;/p&gt;&lt;/li&gt;&lt;/ul&gt;" with {'alias': {'name': &lt;function 
+alternate_name at 0x1a9db18&gt;}}
+welder: DEBUG: RESULT: &lt;ul id="contacts-alias-opt-out" 
+class="contacts"&gt;&lt;span class="foo"&gt;My Name&lt;/span&gt;&lt;/ul&gt;
+welder: DEBUG: SELECT: title from &lt;ul 
+id="contacts-alias-opt-out" class="contacts"&gt;&lt;span class="foo"&gt;My Name&lt;/span&gt;&lt;/ul&gt;
+welder: DEBUG: 
+RESULT: &lt;ul id="contacts-alias-opt-out" class="contacts"&gt;&lt;span class="foo"&gt;My Name&lt;/span&gt;&lt;/ul&gt;
+</pre></div></div></li><li class="testcase"><div class="name">test_alias_function</div><div class="classname">test.test_welder.TestWelder</div><div class="time">0</div><div class="error"><div class="type">exceptions.TypeError</div><div class="message">Only processing instructions and comments can be siblings of the root element
+</div><div class="log"><pre>
+welder: DEBUG: STRATEGY: SequenceDataStrategy for ".contact" : "({'name': 'hij1nx', 'title': 
+'code exploder'}, {'name': 'tmpvar', 'title': 'code pimp'})" on "&lt;ul id="contacts-alias" 
+class="contacts"&gt;&lt;li class="contact"&gt;&lt;span class="foo"&gt;My Name&lt;/span&gt;&lt;p class="title"&gt;Leet 
+Developer&lt;/p&gt;&lt;/li&gt;&lt;/ul&gt;" with {'alias': {'name': &lt;function alias_name at 0x1ab1de8&gt;, 'title': 
+'title'}}
+welder: DEBUG: STRATEGY: MappingDataStrategy for ".contact" : "{'name': 'hij1nx', 
+'title': 'code exploder'}" on "&lt;ul id="contacts-alias" class="contacts"&gt;&lt;li class="contact"&gt;&lt;span 
+class="foo"&gt;My Name&lt;/span&gt;&lt;p class="title"&gt;Leet Developer&lt;/p&gt;&lt;/li&gt;&lt;/ul&gt;" with {'alias': {'name': 
+&lt;function alias_name at 0x1ab1de8&gt;, 'title': 'title'}}
+welder: DEBUG: ALIAS: name -&gt; &lt;function 
+alias_name at 0x1ab1de8&gt;
+welder: DEBUG: ALIAS: &lt;function alias_name at 0x1ab1de8&gt; is callable, 
+returned foo
+welder: DEBUG: SELECT: foo from &lt;ul id="contacts-alias" class="contacts"&gt;&lt;li 
+class="contact"&gt;&lt;span class="foo"&gt;My Name&lt;/span&gt;&lt;p class="title"&gt;Leet 
+Developer&lt;/p&gt;&lt;/li&gt;&lt;/ul&gt;
+welder: DEBUG: SET: "foo" : "hij1nx" on &lt;span class="foo"&gt;My 
+Name&lt;/span&gt;
+welder: DEBUG: SELECT: title from &lt;ul id="contacts-alias" class="contacts"&gt;&lt;li 
+class="contact"&gt;&lt;span class="foo"&gt;hij1nx&lt;/span&gt;&lt;p class="title"&gt;Leet 
+Developer&lt;/p&gt;&lt;/li&gt;&lt;/ul&gt;
+welder: DEBUG: SET: "title" : "code exploder" on &lt;p class="title"&gt;Leet 
+Developer&lt;/p&gt;
+welder: DEBUG: RESULT: &lt;ul id="contacts-alias" class="contacts"&gt;&lt;li 
+class="contact"&gt;&lt;span class="foo"&gt;hij1nx&lt;/span&gt;&lt;p class="title"&gt;code exploder&lt;/p&gt;&lt;/li&gt;&lt;/ul&gt;
+</pre></div></div></li><li class="testcase"><div class="name">test_array</div><div class="classname">test.test_welder.TestWelder</div><div class="time">0</div><div class="error"><div class="type">exceptions.TypeError</div><div class="message">Only processing instructions and comments can be siblings of the root element
+</div><div class="log"><pre>
+welder: DEBUG: STRATEGY: SequenceDataStrategy for ".contact" : "({'name': 'hij1nx', 'title': 
+'code exploder'}, {'name': 'tmpvar', 'title': 'code pimp'})" on "&lt;ul id="contacts" 
+class="contacts"&gt;&lt;li class="contact"&gt;&lt;span class="name foo"&gt;My Name&lt;/span&gt;&lt;p class="title"&gt;Leet 
+Developer&lt;/p&gt;&lt;/li&gt;&lt;/ul&gt;" with {}
+welder: DEBUG: STRATEGY: MappingDataStrategy for ".contact" : 
+"{'name': 'hij1nx', 'title': 'code exploder'}" on "&lt;ul id="contacts" class="contacts"&gt;&lt;li 
+class="contact"&gt;&lt;span class="name foo"&gt;My Name&lt;/span&gt;&lt;p class="title"&gt;Leet 
+Developer&lt;/p&gt;&lt;/li&gt;&lt;/ul&gt;" with {}
+welder: DEBUG: SELECT: name from &lt;ul id="contacts" 
+class="contacts"&gt;&lt;li class="contact"&gt;&lt;span class="name foo"&gt;My Name&lt;/span&gt;&lt;p class="title"&gt;Leet 
+Developer&lt;/p&gt;&lt;/li&gt;&lt;/ul&gt;
+welder: DEBUG: SET: "name" : "hij1nx" on &lt;span class="name foo"&gt;My 
+Name&lt;/span&gt;
+welder: DEBUG: SELECT: title from &lt;ul id="contacts" class="contacts"&gt;&lt;li 
+class="contact"&gt;&lt;span class="name foo"&gt;hij1nx&lt;/span&gt;&lt;p class="title"&gt;Leet 
+Developer&lt;/p&gt;&lt;/li&gt;&lt;/ul&gt;
+welder: DEBUG: SET: "title" : "code exploder" on &lt;p class="title"&gt;Leet 
+Developer&lt;/p&gt;
+welder: DEBUG: RESULT: &lt;ul id="contacts" class="contacts"&gt;&lt;li class="contact"&gt;&lt;span 
+class="name foo"&gt;hij1nx&lt;/span&gt;&lt;p class="title"&gt;code exploder&lt;/p&gt;&lt;/li&gt;&lt;/ul&gt;
+</pre></div></div></li><li class="testcase"><div class="name">test_array_of_arrays</div><div class="classname">test.test_welder.TestWelder</div><div class="time">0</div><div class="failure"><div class="type">exceptions.AssertionError</div><div class="message">
+    &lt;table class="diff" id="difflib_chg_to0__top"
+           cellspacing="0" cellpadding="0" 
+rules="groups" &gt;
+        &lt;colgroup&gt;&lt;/colgroup&gt; &lt;colgroup&gt;&lt;/colgroup&gt; &lt;colgroup&gt;&lt;/colgroup&gt;
+        
+&lt;colgroup&gt;&lt;/colgroup&gt; &lt;colgroup&gt;&lt;/colgroup&gt; &lt;colgroup&gt;&lt;/colgroup&gt;
+        
+        &lt;tbody&gt;
+        
+    &lt;tr&gt;&lt;td class="diff_next" id="difflib_chg_to0__0"&gt;&lt;a 
+href="#difflib_chg_to0__top"&gt;t&lt;/a&gt;&lt;/td&gt;&lt;td class="diff_header" id="from0_1"&gt;1&lt;/td&gt;&lt;td 
+nowrap="nowrap"&gt;&lt;span class="diff_sub"&gt;2&lt;/span&gt;&lt;/td&gt;&lt;td class="diff_next"&gt;&lt;a 
+href="#difflib_chg_to0__top"&gt;t&lt;/a&gt;&lt;/td&gt;&lt;td class="diff_header" id="to0_1"&gt;1&lt;/td&gt;&lt;td 
+nowrap="nowrap"&gt;&lt;span class="diff_add"&gt;1&lt;/span&gt;&lt;/td&gt;&lt;/tr&gt;
+        &lt;/tbody&gt;
+    &lt;/table&gt;
+</div><div class="log"><pre>
+welder: DEBUG: STRATEGY: MappingDataStrategy for ".people" : "{'person': ({'job': ('guru', 
+'monkey', 'tester'), 'name': 'John'}, {'job': ('supervise', 'yell'), 'name': 'Bob'}), 'bar': 
+'hello'}" on "&lt;ul id="array-of-arrays" class="people"&gt;&lt;li class="person"&gt;&lt;h1 class="name"&gt;Person's 
+name&lt;/h1&gt;&lt;ul&gt;&lt;li class="job"&gt;A job this person does&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;&lt;li class="person"&gt;&lt;h1 
+class="name"&gt;Another Person's name&lt;/h1&gt;&lt;ul&gt;&lt;li class="job"&gt;A job this new person 
+does&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;&lt;li class="person bar"&gt;Sidecase #1: associated data key&lt;/li&gt;&lt;li class="person 
+submit"&gt;Sidecase #2: additional classes (no data equiv)&lt;/li&gt;&lt;/ul&gt;" with {'map': {'person': 
+&lt;function alternative_map at 0x1ab1ed8&gt;}}
+welder: DEBUG: SELECT: person from &lt;ul 
+id="array-of-arrays" class="people"&gt;&lt;li class="person"&gt;&lt;h1 class="name"&gt;Person's name&lt;/h1&gt;&lt;ul&gt;&lt;li 
+class="job"&gt;A job this person does&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;&lt;li class="person"&gt;&lt;h1 class="name"&gt;Another 
+Person's name&lt;/h1&gt;&lt;ul&gt;&lt;li class="job"&gt;A job this new person does&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;&lt;li class="person 
+bar"&gt;Sidecase #1: associated data key&lt;/li&gt;&lt;li class="person submit"&gt;Sidecase #2: additional 
+classes (no data equiv)&lt;/li&gt;&lt;/ul&gt;
+welder: DEBUG: SET: "person" : "({'job': ('guru', 'monkey', 
+'tester'), 'name': 'John'}, {'job': ('supervise', 'yell'), 'name': 'Bob'})" on &lt;li 
+class="person"&gt;&lt;h1 class="name"&gt;Person's name&lt;/h1&gt;&lt;ul&gt;&lt;li class="job"&gt;A job this person 
+does&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;
+welder: DEBUG: STRATEGY: SequenceDataStrategy for "person" : "({'job': 
+('guru', 'monkey', 'tester'), 'name': 'John'}, {'job': ('supervise', 'yell'), 'name': 'Bob'})" on 
+"&lt;li class="person"&gt;&lt;h1 class="name"&gt;Person's name&lt;/h1&gt;&lt;ul&gt;&lt;li class="job"&gt;A job this person 
+does&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;" with {'map': {'person': &lt;function alternative_map at 0x1ab1ed8&gt;}}
+welder: 
+DEBUG: STRATEGY: MappingDataStrategy for "person" : "{'job': ('guru', 'monkey', 'tester'), 'name': 
+'John'}" on "&lt;li class="person"&gt;&lt;h1 class="name"&gt;Person's name&lt;/h1&gt;&lt;ul&gt;&lt;li class="job"&gt;A job this 
+person does&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;" with {'map': {'person': &lt;function alternative_map at 
+0x1ab1ed8&gt;}}
+welder: DEBUG: SIBLING: Removed &lt;li class="person"&gt;&lt;h1 class="name"&gt;Another Person's 
+name&lt;/h1&gt;&lt;ul&gt;&lt;li class="job"&gt;A job this new person does&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;
+welder: DEBUG: MAP: 
+&lt;function alternative_map at 0x1ab1ed8&gt; returns {'job': ('guru', 'monkey', 'tester'), 'name': 
+'John'}
+welder: DEBUG: SELECT: job from &lt;li class="person pre-processed"&gt;&lt;h1 class="name"&gt;Person's 
+name&lt;/h1&gt;&lt;ul&gt;&lt;li class="job"&gt;A job this person does&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;
+welder: DEBUG: SET: "job" : 
+"('guru', 'monkey', 'tester')" on &lt;li class="job"&gt;A job this person does&lt;/li&gt;
+welder: DEBUG: 
+STRATEGY: SequenceDataStrategy for "job" : "('guru', 'monkey', 'tester')" on "&lt;li class="job"&gt;A 
+job this person does&lt;/li&gt;" with {'map': {'person': &lt;function alternative_map at 
+0x1ab1ed8&gt;}}
+welder: DEBUG: STRATEGY: AtomDataStrategy for "job" : "guru" on "&lt;li class="job"&gt;A 
+job this person does&lt;/li&gt;" with {'map': {'person': &lt;function alternative_map at 
+0x1ab1ed8&gt;}}
+welder: DEBUG: RESULT: &lt;li class="job"&gt;guru&lt;/li&gt;
+welder: DEBUG: STRATEGY: 
+AtomDataStrategy for "job" : "monkey" on "&lt;li class="job"&gt;A job this person does&lt;/li&gt;" with 
+{'map': {'person': &lt;function alternative_map at 0x1ab1ed8&gt;}}
+welder: DEBUG: RESULT: &lt;li 
+class="job"&gt;monkey&lt;/li&gt;
+welder: DEBUG: STRATEGY: AtomDataStrategy for "job" : "tester" on "&lt;li 
+class="job"&gt;A job this person does&lt;/li&gt;" with {'map': {'person': &lt;function alternative_map at 
+0x1ab1ed8&gt;}}
+welder: DEBUG: RESULT: &lt;li class="job"&gt;tester&lt;/li&gt;
+welder: DEBUG: RESULT: &lt;li 
+class="job"&gt;guru&lt;/li&gt;
+welder: DEBUG: SELECT: name from &lt;li class="person pre-processed"&gt;&lt;h1 
+class="name"&gt;Person's name&lt;/h1&gt;&lt;ul&gt;&lt;li class="job"&gt;guru&lt;/li&gt;&lt;li class="job"&gt;monkey&lt;/li&gt;&lt;li 
+class="job"&gt;tester&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;
+welder: DEBUG: SET: "name" : "John" on &lt;h1 class="name"&gt;Person's 
+name&lt;/h1&gt;
+welder: DEBUG: RESULT: &lt;li class="person pre-processed"&gt;&lt;h1 
+class="name"&gt;John&lt;/h1&gt;&lt;ul&gt;&lt;li class="job"&gt;guru&lt;/li&gt;&lt;li class="job"&gt;monkey&lt;/li&gt;&lt;li 
+class="job"&gt;tester&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;
+welder: DEBUG: STRATEGY: MappingDataStrategy for "person" : 
+"{'job': ('supervise', 'yell'), 'name': 'Bob'}" on "&lt;li class="person"&gt;&lt;h1 class="name"&gt;Person's 
+name&lt;/h1&gt;&lt;ul&gt;&lt;li class="job"&gt;A job this person does&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;" with {'map': {'person': 
+&lt;function alternative_map at 0x1ab1ed8&gt;}}
+welder: DEBUG: MAP: &lt;function alternative_map at 
+0x1ab1ed8&gt; returns {'job': ('supervise', 'yell'), 'name': 'Bob'}
+welder: DEBUG: SELECT: job from 
+&lt;li class="person pre-processed"&gt;&lt;h1 class="name"&gt;Person's name&lt;/h1&gt;&lt;ul&gt;&lt;li class="job"&gt;A job this 
+person does&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;
+welder: DEBUG: SET: "job" : "('supervise', 'yell')" on &lt;li 
+class="job"&gt;A job this person does&lt;/li&gt;
+welder: DEBUG: STRATEGY: SequenceDataStrategy for "job" : 
+"('supervise', 'yell')" on "&lt;li class="job"&gt;A job this person does&lt;/li&gt;" with {'map': {'person': 
+&lt;function alternative_map at 0x1ab1ed8&gt;}}
+welder: DEBUG: STRATEGY: AtomDataStrategy for "job" : 
+"supervise" on "&lt;li class="job"&gt;A job this person does&lt;/li&gt;" with {'map': {'person': &lt;function 
+alternative_map at 0x1ab1ed8&gt;}}
+welder: DEBUG: RESULT: &lt;li class="job"&gt;supervise&lt;/li&gt;
+welder: 
+DEBUG: STRATEGY: AtomDataStrategy for "job" : "yell" on "&lt;li class="job"&gt;A job this person 
+does&lt;/li&gt;" with {'map': {'person': &lt;function alternative_map at 0x1ab1ed8&gt;}}
+welder: DEBUG: 
+RESULT: &lt;li class="job"&gt;yell&lt;/li&gt;
+welder: DEBUG: RESULT: &lt;li class="job"&gt;supervise&lt;/li&gt;
+welder: 
+DEBUG: SELECT: name from &lt;li class="person pre-processed"&gt;&lt;h1 class="name"&gt;Person's 
+name&lt;/h1&gt;&lt;ul&gt;&lt;li class="job"&gt;supervise&lt;/li&gt;&lt;li class="job"&gt;yell&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;
+welder: DEBUG: SET: 
+"name" : "Bob" on &lt;h1 class="name"&gt;Person's name&lt;/h1&gt;
+welder: DEBUG: RESULT: &lt;li class="person 
+pre-processed"&gt;&lt;h1 class="name"&gt;Bob&lt;/h1&gt;&lt;ul&gt;&lt;li class="job"&gt;supervise&lt;/li&gt;&lt;li 
+class="job"&gt;yell&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;
+welder: DEBUG: RESULT: &lt;li class="person pre-processed"&gt;&lt;h1 
+class="name"&gt;John&lt;/h1&gt;&lt;ul&gt;&lt;li class="job"&gt;guru&lt;/li&gt;&lt;li class="job"&gt;monkey&lt;/li&gt;&lt;li 
+class="job"&gt;tester&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;
+welder: DEBUG: SET: "person" : "({'job': ('guru', 'monkey', 
+'tester'), 'name': 'John'}, {'job': ('supervise', 'yell'), 'name': 'Bob'})" on &lt;li class="person 
+bar"&gt;Sidecase #1: associated data key&lt;/li&gt;
+welder: DEBUG: STRATEGY: SequenceDataStrategy for 
+"person" : "({'job': ('guru', 'monkey', 'tester'), 'name': 'John'}, {'job': ('supervise', 'yell'), 
+'name': 'Bob'})" on "&lt;li class="person bar"&gt;Sidecase #1: associated data key&lt;/li&gt;" with {'map': 
+{'person': &lt;function alternative_map at 0x1ab1ed8&gt;}}
+welder: DEBUG: STRATEGY: MappingDataStrategy 
+for "person" : "{'job': ('guru', 'monkey', 'tester'), 'name': 'John'}" on "&lt;li class="person 
+bar"&gt;Sidecase #1: associated data key&lt;/li&gt;" with {'map': {'person': &lt;function alternative_map at 
+0x1ab1ed8&gt;}}
+welder: DEBUG: MAP: &lt;function alternative_map at 0x1ab1ed8&gt; returns {'job': ('guru', 
+'monkey', 'tester'), 'name': 'John'}
+welder: DEBUG: SELECT: job from &lt;li class="person bar 
+pre-processed"&gt;Sidecase #1: associated data key&lt;/li&gt;
+welder: DEBUG: SELECT: name from &lt;li 
+class="person bar pre-processed"&gt;Sidecase #1: associated data key&lt;/li&gt;
+welder: DEBUG: RESULT: &lt;li 
+class="person bar pre-processed"&gt;Sidecase #1: associated data key&lt;/li&gt;
+welder: DEBUG: STRATEGY: 
+MappingDataStrategy for "person" : "{'job': ('supervise', 'yell'), 'name': 'Bob'}" on "&lt;li 
+class="person bar"&gt;Sidecase #1: associated data key&lt;/li&gt;" with {'map': {'person': &lt;function 
+alternative_map at 0x1ab1ed8&gt;}}
+welder: DEBUG: MAP: &lt;function alternative_map at 0x1ab1ed8&gt; 
+returns {'job': ('supervise', 'yell'), 'name': 'Bob'}
+welder: DEBUG: SELECT: job from &lt;li 
+class="person bar pre-processed"&gt;Sidecase #1: associated data key&lt;/li&gt;
+welder: DEBUG: SELECT: name 
+from &lt;li class="person bar pre-processed"&gt;Sidecase #1: associated data key&lt;/li&gt;
+welder: DEBUG: 
+RESULT: &lt;li class="person bar pre-processed"&gt;Sidecase #1: associated data key&lt;/li&gt;
+welder: DEBUG: 
+RESULT: &lt;li class="person bar pre-processed"&gt;Sidecase #1: associated data key&lt;/li&gt;
+welder: DEBUG: 
+SET: "person" : "({'job': ('guru', 'monkey', 'tester'), 'name': 'John'}, {'job': ('supervise', 
+'yell'), 'name': 'Bob'})" on &lt;li class="person submit"&gt;Sidecase #2: additional classes (no data 
+equiv)&lt;/li&gt;
+welder: DEBUG: STRATEGY: SequenceDataStrategy for "person" : "({'job': ('guru', 
+'monkey', 'tester'), 'name': 'John'}, {'job': ('supervise', 'yell'), 'name': 'Bob'})" on "&lt;li 
+class="person submit"&gt;Sidecase #2: additional classes (no data equiv)&lt;/li&gt;" with {'map': 
+{'person': &lt;function alternative_map at 0x1ab1ed8&gt;}}
+welder: DEBUG: STRATEGY: MappingDataStrategy 
+for "person" : "{'job': ('guru', 'monkey', 'tester'), 'name': 'John'}" on "&lt;li class="person 
+submit"&gt;Sidecase #2: additional classes (no data equiv)&lt;/li&gt;" with {'map': {'person': &lt;function 
+alternative_map at 0x1ab1ed8&gt;}}
+welder: DEBUG: MAP: &lt;function alternative_map at 0x1ab1ed8&gt; 
+returns {'job': ('guru', 'monkey', 'tester'), 'name': 'John'}
+welder: DEBUG: SELECT: job from &lt;li 
+class="person pre-processed submit"&gt;Sidecase #2: additional classes (no data equiv)&lt;/li&gt;
+welder: 
+DEBUG: SELECT: name from &lt;li class="person pre-processed submit"&gt;Sidecase #2: additional classes 
+(no data equiv)&lt;/li&gt;
+welder: DEBUG: RESULT: &lt;li class="person pre-processed submit"&gt;Sidecase #2: 
+additional classes (no data equiv)&lt;/li&gt;
+welder: DEBUG: STRATEGY: MappingDataStrategy for "person" 
+: "{'job': ('supervise', 'yell'), 'name': 'Bob'}" on "&lt;li class="person submit"&gt;Sidecase #2: 
+additional classes (no data equiv)&lt;/li&gt;" with {'map': {'person': &lt;function alternative_map at 
+0x1ab1ed8&gt;}}
+welder: DEBUG: MAP: &lt;function alternative_map at 0x1ab1ed8&gt; returns {'job': 
+('supervise', 'yell'), 'name': 'Bob'}
+welder: DEBUG: SELECT: job from &lt;li class="person 
+pre-processed submit"&gt;Sidecase #2: additional classes (no data equiv)&lt;/li&gt;
+welder: DEBUG: SELECT: 
+name from &lt;li class="person pre-processed submit"&gt;Sidecase #2: additional classes (no data 
+equiv)&lt;/li&gt;
+welder: DEBUG: RESULT: &lt;li class="person pre-processed submit"&gt;Sidecase #2: additional 
+classes (no data equiv)&lt;/li&gt;
+welder: DEBUG: RESULT: &lt;li class="person pre-processed 
+submit"&gt;Sidecase #2: additional classes (no data equiv)&lt;/li&gt;
+welder: DEBUG: SELECT: bar from &lt;ul 
+id="array-of-arrays" class="people"&gt;&lt;li class="person pre-processed"&gt;&lt;h1 
+class="name"&gt;John&lt;/h1&gt;&lt;ul&gt;&lt;li class="job"&gt;guru&lt;/li&gt;&lt;li class="job"&gt;monkey&lt;/li&gt;&lt;li 
+class="job"&gt;tester&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;&lt;li class="person pre-processed"&gt;&lt;h1 class="name"&gt;Bob&lt;/h1&gt;&lt;ul&gt;&lt;li 
+class="job"&gt;supervise&lt;/li&gt;&lt;li class="job"&gt;yell&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;&lt;li class="person bar 
+pre-processed"&gt;Sidecase #1: associated data key&lt;/li&gt;&lt;li class="person bar pre-processed"&gt;Sidecase 
+#1: associated data key&lt;/li&gt;&lt;li class="person pre-processed submit"&gt;Sidecase #2: additional 
+classes (no data equiv)&lt;/li&gt;&lt;li class="person pre-processed submit"&gt;Sidecase #2: additional 
+classes (no data equiv)&lt;/li&gt;&lt;/ul&gt;
+welder: DEBUG: SET: "bar" : "hello" on &lt;li class="person bar 
+pre-processed"&gt;Sidecase #1: associated data key&lt;/li&gt;
+welder: DEBUG: SET: "bar" : "hello" on &lt;li 
+class="person bar pre-processed"&gt;Sidecase #1: associated data key&lt;/li&gt;
+welder: DEBUG: RESULT: &lt;ul 
+id="array-of-arrays" class="people"&gt;&lt;li class="person pre-processed"&gt;&lt;h1 
+class="name"&gt;John&lt;/h1&gt;&lt;ul&gt;&lt;li class="job"&gt;guru&lt;/li&gt;&lt;li class="job"&gt;monkey&lt;/li&gt;&lt;li 
+class="job"&gt;tester&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;&lt;li class="person pre-processed"&gt;&lt;h1 class="name"&gt;Bob&lt;/h1&gt;&lt;ul&gt;&lt;li 
+class="job"&gt;supervise&lt;/li&gt;&lt;li class="job"&gt;yell&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;&lt;li class="person bar 
+pre-processed"&gt;hello&lt;/li&gt;&lt;li class="person bar pre-processed"&gt;hello&lt;/li&gt;&lt;li class="person 
+pre-processed submit"&gt;Sidecase #2: additional classes (no data equiv)&lt;/li&gt;&lt;li class="person 
+pre-processed submit"&gt;Sidecase #2: additional classes (no data equiv)&lt;/li&gt;&lt;/ul&gt;
+test.test_welder: 
+?[1;34mDEBUG?[0m: TEMPLATE: &lt;ul id="array-of-arrays" class="people"&gt;&lt;li class="person 
+pre-processed"&gt;
+      &lt;h1 class="name"&gt;John&lt;/h1&gt;&lt;ul&gt;&lt;li class="job"&gt;guru&lt;/li&gt;&lt;li 
+class="job"&gt;monkey&lt;/li&gt;&lt;li class="job"&gt;tester&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;&lt;li class="person pre-processed"&gt;
+     
+ &lt;h1 class="name"&gt;Bob&lt;/h1&gt;&lt;ul&gt;&lt;li class="job"&gt;supervise&lt;/li&gt;&lt;li class="job"&gt;yell&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;
+   
+ 
+    &lt;li class="person bar pre-processed"&gt;hello&lt;/li&gt;&lt;li class="person bar 
+pre-processed"&gt;hello&lt;/li&gt;&lt;li class="person pre-processed submit"&gt;Sidecase #2: additional classes 
+(no data equiv)&lt;/li&gt;&lt;li class="person pre-processed submit"&gt;Sidecase #2: additional classes (no 
+data equiv)&lt;/li&gt;
+  
+  &lt;/ul&gt;
+</pre></div></div></li><li class="testcase"><div class="name">test_external</div><div class="classname">test.test_welder.TestWelder</div><div class="time">0</div><div class="error"><div class="type">exceptions.TypeError</div><div class="message">Only processing instructions and comments can be siblings of the root element
+</div><div class="log"><pre>
+welder: DEBUG: STRATEGY: SequenceDataStrategy for ".number" : "&lt;span&gt;zero&lt;/span&gt;
+      
+&lt;span&gt;one&lt;/span&gt;
+      &lt;span&gt;two&lt;/span&gt;
+    " on "&lt;div id="dest"&gt;&lt;ul&gt;&lt;li class="number"&gt;This will 
+be removed&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;" with {}
+</pre></div></div></li><li class="testcase"><div class="name">test_false_map</div><div class="classname">test.test_welder.TestWelder</div><div class="time">0</div><div class="failure"><div class="type">exceptions.AssertionError</div><div class="message">
+    &lt;table class="diff" id="difflib_chg_to1__top"
+           cellspacing="0" cellpadding="0" 
+rules="groups" &gt;
+        &lt;colgroup&gt;&lt;/colgroup&gt; &lt;colgroup&gt;&lt;/colgroup&gt; &lt;colgroup&gt;&lt;/colgroup&gt;
+        
+&lt;colgroup&gt;&lt;/colgroup&gt; &lt;colgroup&gt;&lt;/colgroup&gt; &lt;colgroup&gt;&lt;/colgroup&gt;
+        
+        &lt;tbody&gt;
+        
+    &lt;tr&gt;&lt;td class="diff_next" id="difflib_chg_to1__1"&gt;&lt;a href="#difflib_chg_to1__1"&gt;n&lt;/a&gt;&lt;/td&gt;&lt;td 
+class="diff_header" id="from1_1"&gt;1&lt;/td&gt;&lt;td nowrap="nowrap"&gt;&lt;span class="diff_sub"&gt;w&lt;/span&gt;&lt;/td&gt;&lt;td 
+class="diff_next"&gt;&lt;a href="#difflib_chg_to1__1"&gt;n&lt;/a&gt;&lt;/td&gt;&lt;td class="diff_header" 
+id="to1_1"&gt;1&lt;/td&gt;&lt;td nowrap="nowrap"&gt;&lt;span class="diff_add"&gt;d&lt;/span&gt;&lt;/td&gt;&lt;/tr&gt;
+            &lt;tr&gt;&lt;td 
+class="diff_next"&gt;&lt;/td&gt;&lt;td class="diff_header" id="from1_2"&gt;2&lt;/td&gt;&lt;td nowrap="nowrap"&gt;o&lt;/td&gt;&lt;td 
+class="diff_next"&gt;&lt;/td&gt;&lt;td class="diff_header" id="to1_2"&gt;2&lt;/td&gt;&lt;td nowrap="nowrap"&gt;o&lt;/td&gt;&lt;/tr&gt;
+   
+         &lt;tr&gt;&lt;td class="diff_next"&gt;&lt;a href="#difflib_chg_to1__top"&gt;t&lt;/a&gt;&lt;/td&gt;&lt;td 
+class="diff_header" id="from1_3"&gt;3&lt;/td&gt;&lt;td nowrap="nowrap"&gt;&lt;span class="diff_sub"&gt;r&lt;/span&gt;&lt;/td&gt;&lt;td 
+class="diff_next"&gt;&lt;a href="#difflib_chg_to1__top"&gt;t&lt;/a&gt;&lt;/td&gt;&lt;td class="diff_header" 
+id="to1_3"&gt;3&lt;/td&gt;&lt;td nowrap="nowrap"&gt;&lt;span class="diff_add"&gt;&amp;nbsp;&lt;/span&gt;&lt;/td&gt;&lt;/tr&gt;
+            
+&lt;tr&gt;&lt;td class="diff_next"&gt;&lt;/td&gt;&lt;td class="diff_header" id="from1_4"&gt;4&lt;/td&gt;&lt;td 
+nowrap="nowrap"&gt;&lt;span class="diff_sub"&gt;l&lt;/span&gt;&lt;/td&gt;&lt;td class="diff_next"&gt;&lt;/td&gt;&lt;td 
+class="diff_header" id="to1_4"&gt;4&lt;/td&gt;&lt;td nowrap="nowrap"&gt;&lt;span 
+class="diff_add"&gt;n&lt;/span&gt;&lt;/td&gt;&lt;/tr&gt;
+            &lt;tr&gt;&lt;td class="diff_next"&gt;&lt;/td&gt;&lt;td 
+class="diff_header" id="from1_5"&gt;5&lt;/td&gt;&lt;td nowrap="nowrap"&gt;&lt;span class="diff_sub"&gt;d&lt;/span&gt;&lt;/td&gt;&lt;td 
+class="diff_next"&gt;&lt;/td&gt;&lt;td class="diff_header" id="to1_5"&gt;5&lt;/td&gt;&lt;td nowrap="nowrap"&gt;&lt;span 
+class="diff_add"&gt;o&lt;/span&gt;&lt;/td&gt;&lt;/tr&gt;
+            &lt;tr&gt;&lt;td class="diff_next"&gt;&lt;/td&gt;&lt;td 
+class="diff_header"&gt;&lt;/td&gt;&lt;td nowrap="nowrap"&gt;&lt;/td&gt;&lt;td class="diff_next"&gt;&lt;/td&gt;&lt;td 
+class="diff_header" id="to1_6"&gt;6&lt;/td&gt;&lt;td nowrap="nowrap"&gt;&lt;span 
+class="diff_add"&gt;t&lt;/span&gt;&lt;/td&gt;&lt;/tr&gt;
+            &lt;tr&gt;&lt;td class="diff_next"&gt;&lt;/td&gt;&lt;td 
+class="diff_header"&gt;&lt;/td&gt;&lt;td nowrap="nowrap"&gt;&lt;/td&gt;&lt;td class="diff_next"&gt;&lt;/td&gt;&lt;td 
+class="diff_header" id="to1_7"&gt;7&lt;/td&gt;&lt;td nowrap="nowrap"&gt;&lt;span 
+class="diff_add"&gt;&amp;nbsp;&lt;/span&gt;&lt;/td&gt;&lt;/tr&gt;
+            &lt;tr&gt;&lt;td class="diff_next"&gt;&lt;/td&gt;&lt;td 
+class="diff_header"&gt;&lt;/td&gt;&lt;td nowrap="nowrap"&gt;&lt;/td&gt;&lt;td class="diff_next"&gt;&lt;/td&gt;&lt;td 
+class="diff_header" id="to1_8"&gt;8&lt;/td&gt;&lt;td nowrap="nowrap"&gt;&lt;span 
+class="diff_add"&gt;t&lt;/span&gt;&lt;/td&gt;&lt;/tr&gt;
+            &lt;tr&gt;&lt;td class="diff_next"&gt;&lt;/td&gt;&lt;td 
+class="diff_header"&gt;&lt;/td&gt;&lt;td nowrap="nowrap"&gt;&lt;/td&gt;&lt;td class="diff_next"&gt;&lt;/td&gt;&lt;td 
+class="diff_header" id="to1_9"&gt;9&lt;/td&gt;&lt;td nowrap="nowrap"&gt;&lt;span 
+class="diff_add"&gt;o&lt;/span&gt;&lt;/td&gt;&lt;/tr&gt;
+            &lt;tr&gt;&lt;td class="diff_next"&gt;&lt;/td&gt;&lt;td 
+class="diff_header"&gt;&lt;/td&gt;&lt;td nowrap="nowrap"&gt;&lt;/td&gt;&lt;td class="diff_next"&gt;&lt;/td&gt;&lt;td 
+class="diff_header" id="to1_10"&gt;10&lt;/td&gt;&lt;td nowrap="nowrap"&gt;&lt;span 
+class="diff_add"&gt;u&lt;/span&gt;&lt;/td&gt;&lt;/tr&gt;
+            &lt;tr&gt;&lt;td class="diff_next"&gt;&lt;/td&gt;&lt;td 
+class="diff_header"&gt;&lt;/td&gt;&lt;td nowrap="nowrap"&gt;&lt;/td&gt;&lt;td class="diff_next"&gt;&lt;/td&gt;&lt;td 
+class="diff_header" id="to1_11"&gt;11&lt;/td&gt;&lt;td nowrap="nowrap"&gt;&lt;span 
+class="diff_add"&gt;c&lt;/span&gt;&lt;/td&gt;&lt;/tr&gt;
+            &lt;tr&gt;&lt;td class="diff_next"&gt;&lt;/td&gt;&lt;td 
+class="diff_header"&gt;&lt;/td&gt;&lt;td nowrap="nowrap"&gt;&lt;/td&gt;&lt;td class="diff_next"&gt;&lt;/td&gt;&lt;td 
+class="diff_header" id="to1_12"&gt;12&lt;/td&gt;&lt;td nowrap="nowrap"&gt;&lt;span 
+class="diff_add"&gt;h&lt;/span&gt;&lt;/td&gt;&lt;/tr&gt;
+        &lt;/tbody&gt;
+    &lt;/table&gt;
+</div><div class="log"><pre>
+welder: DEBUG: STRATEGY: SequenceDataStrategy for ".item" : "[{'where': 'world'}]" on "&lt;ul 
+class="list"&gt;&lt;li class="item"&gt;hello&lt;span class="where"&gt;do not touch&lt;/span&gt;&lt;/li&gt;&lt;/ul&gt;" with {'map': 
+{'item': &lt;function &lt;lambda&gt; at 0x1a9db18&gt;}}
+welder: DEBUG: STRATEGY: MappingDataStrategy for 
+".item" : "{'where': 'world'}" on "&lt;ul class="list"&gt;&lt;li class="item"&gt;hello&lt;span class="where"&gt;do 
+not touch&lt;/span&gt;&lt;/li&gt;&lt;/ul&gt;" with {'map': {'item': &lt;function &lt;lambda&gt; at 0x1a9db18&gt;}}
+welder: 
+DEBUG: SELECT: where from &lt;ul class="list"&gt;&lt;li class="item"&gt;hello&lt;span class="where"&gt;do not 
+touch&lt;/span&gt;&lt;/li&gt;&lt;/ul&gt;
+welder: DEBUG: SET: "where" : "world" on &lt;span class="where"&gt;do not 
+touch&lt;/span&gt;
+welder: DEBUG: RESULT: &lt;ul class="list"&gt;&lt;li class="item"&gt;hello&lt;span 
+class="where"&gt;world&lt;/span&gt;&lt;/li&gt;&lt;/ul&gt;
+welder: DEBUG: RESULT: &lt;ul class="list"&gt;&lt;li 
+class="item"&gt;hello&lt;span class="where"&gt;world&lt;/span&gt;&lt;/li&gt;&lt;/ul&gt;
+</pre></div></div></li><li class="testcase"><div class="name">test_form_elements</div><div class="classname">test.test_welder.TestWelder</div><div class="time">0</div></li><li class="testcase"><div class="name">test_internal</div><div class="classname">test.test_welder.TestWelder</div><div class="time">0</div><div class="error"><div class="type">exceptions.TypeError</div><div class="message">Only processing instructions and comments can be siblings of the root element
+</div><div class="log"><pre>
+welder: DEBUG: STRATEGY: SequenceDataStrategy for ".number" : "&lt;span&gt;zero&lt;/span&gt;
+      
+&lt;span&gt;one&lt;/span&gt;
+      &lt;span&gt;two&lt;/span&gt;
+    " on "&lt;div id="source-and-dest"&gt;&lt;div id="dest"&gt;&lt;ul&gt;&lt;li 
+class="number"&gt;This will be removed&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;&lt;div 
+id="data"&gt;&lt;span&gt;zero&lt;/span&gt;&lt;span&gt;one&lt;/span&gt;&lt;span&gt;two&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;" with {}
+</pre></div></div></li><li class="testcase"><div class="name">test_map_return</div><div class="classname">test.test_welder.TestWelder</div><div class="time">0</div><div class="error"><div class="type">exceptions.TypeError</div><div class="message">Only processing instructions and comments can be siblings of the root element
+</div><div class="log"><pre>
+welder: DEBUG: STRATEGY: SequenceDataStrategy for ".contact" : "({'name': 'hij1nx', 'title': 
+'code exploder'}, {'name': 'tmpvar', 'title': 'code pimp'})" on "&lt;ul id="contacts" 
+class="contacts"&gt;&lt;li class="contact"&gt;&lt;span class="name foo"&gt;My Name&lt;/span&gt;&lt;p class="title"&gt;Leet 
+Developer&lt;/p&gt;&lt;/li&gt;&lt;/ul&gt;" with {'map': {'contact': &lt;function map_return at 0x1ab1c08&gt;}}
+welder: 
+DEBUG: STRATEGY: MappingDataStrategy for ".contact" : "{'name': 'hij1nx', 'title': 'code 
+exploder'}" on "&lt;ul id="contacts" class="contacts"&gt;&lt;li class="contact"&gt;&lt;span class="name foo"&gt;My 
+Name&lt;/span&gt;&lt;p class="title"&gt;Leet Developer&lt;/p&gt;&lt;/li&gt;&lt;/ul&gt;" with {'map': {'contact': &lt;function 
+map_return at 0x1ab1c08&gt;}}
+welder: DEBUG: SELECT: name from &lt;ul id="contacts" class="contacts"&gt;&lt;li 
+class="contact"&gt;&lt;span class="name foo"&gt;My Name&lt;/span&gt;&lt;p class="title"&gt;Leet 
+Developer&lt;/p&gt;&lt;/li&gt;&lt;/ul&gt;
+welder: DEBUG: SET: "name" : "hij1nx" on &lt;span class="name foo"&gt;My 
+Name&lt;/span&gt;
+welder: DEBUG: SELECT: title from &lt;ul id="contacts" class="contacts"&gt;&lt;li 
+class="contact"&gt;&lt;span class="name foo"&gt;hij1nx&lt;/span&gt;&lt;p class="title"&gt;Leet 
+Developer&lt;/p&gt;&lt;/li&gt;&lt;/ul&gt;
+welder: DEBUG: SET: "title" : "code exploder" on &lt;p class="title"&gt;Leet 
+Developer&lt;/p&gt;
+welder: DEBUG: RESULT: &lt;ul id="contacts" class="contacts"&gt;&lt;li class="contact"&gt;&lt;span 
+class="name foo"&gt;hij1nx&lt;/span&gt;&lt;p class="title"&gt;code exploder&lt;/p&gt;&lt;/li&gt;&lt;/ul&gt;
+</pre></div></div></li><li class="testcase"><div class="name">test_object_literal</div><div class="classname">test.test_welder.TestWelder</div><div class="time">0</div></li><li class="testcase"><div class="name">test_opt_out</div><div class="classname">test.test_welder.TestWelder</div><div class="time">0</div><div class="error"><div class="type">exceptions.TypeError</div><div class="message">Only processing instructions and comments can be siblings of the root element
+</div><div class="log"><pre>
+welder: DEBUG: STRATEGY: SequenceDataStrategy for ".contact" : "({'name': 'hij1nx', 'title': 
+'code exploder'}, {'name': 'tmpvar', 'title': 'code pimp'})" on "&lt;ul id="contacts-opt-out" 
+class="contacts"&gt;&lt;li class="contact"&gt;&lt;span class="name foo"&gt;My Name&lt;/span&gt;&lt;p class="title"&gt;Leet 
+Developer&lt;/p&gt;&lt;/li&gt;&lt;/ul&gt;" with {'alias': {'name': False}}
+welder: DEBUG: STRATEGY: 
+MappingDataStrategy for ".contact" : "{'name': 'hij1nx', 'title': 'code exploder'}" on "&lt;ul 
+id="contacts-opt-out" class="contacts"&gt;&lt;li class="contact"&gt;&lt;span class="name foo"&gt;My Name&lt;/span&gt;&lt;p 
+class="title"&gt;Leet Developer&lt;/p&gt;&lt;/li&gt;&lt;/ul&gt;" with {'alias': {'name': False}}
+welder: DEBUG: ALIAS: 
+name -&gt; False
+welder: DEBUG: KEY: is False, skipping
+welder: DEBUG: SELECT: title from &lt;ul 
+id="contacts-opt-out" class="contacts"&gt;&lt;li class="contact"&gt;&lt;span class="name foo"&gt;My Name&lt;/span&gt;&lt;p 
+class="title"&gt;Leet Developer&lt;/p&gt;&lt;/li&gt;&lt;/ul&gt;
+welder: DEBUG: SET: "title" : "code exploder" on &lt;p 
+class="title"&gt;Leet Developer&lt;/p&gt;
+welder: DEBUG: RESULT: &lt;ul id="contacts-opt-out" 
+class="contacts"&gt;&lt;li class="contact"&gt;&lt;span class="name foo"&gt;My Name&lt;/span&gt;&lt;p class="title"&gt;code 
+exploder&lt;/p&gt;&lt;/li&gt;&lt;/ul&gt;
+</pre></div></div></li><li class="testcase"><div class="name">test_reweld</div><div class="classname">test.test_welder.TestWelder</div><div class="time">0</div><div class="error"><div class="type">exceptions.TypeError</div><div class="message">Only processing instructions and comments can be siblings of the root element
+</div><div class="log"><pre>
+welder: DEBUG: STRATEGY: SequenceDataStrategy for ".contact" : "({'name': 'hij1nx', 'title': 
+'manhattan'}, {'name': 'tmpvar', 'title': 'brooklyn'})" on "&lt;ul id="contacts" class="contacts"&gt;&lt;li 
+class="contact"&gt;&lt;span class="name foo"&gt;My Name&lt;/span&gt;&lt;p class="title"&gt;Leet 
+Developer&lt;/p&gt;&lt;/li&gt;&lt;/ul&gt;" with {}
+welder: DEBUG: STRATEGY: MappingDataStrategy for ".contact" : 
+"{'name': 'hij1nx', 'title': 'manhattan'}" on "&lt;ul id="contacts" class="contacts"&gt;&lt;li 
+class="contact"&gt;&lt;span class="name foo"&gt;My Name&lt;/span&gt;&lt;p class="title"&gt;Leet 
+Developer&lt;/p&gt;&lt;/li&gt;&lt;/ul&gt;" with {}
+welder: DEBUG: SELECT: name from &lt;ul id="contacts" 
+class="contacts"&gt;&lt;li class="contact"&gt;&lt;span class="name foo"&gt;My Name&lt;/span&gt;&lt;p class="title"&gt;Leet 
+Developer&lt;/p&gt;&lt;/li&gt;&lt;/ul&gt;
+welder: DEBUG: SET: "name" : "hij1nx" on &lt;span class="name foo"&gt;My 
+Name&lt;/span&gt;
+welder: DEBUG: SELECT: title from &lt;ul id="contacts" class="contacts"&gt;&lt;li 
+class="contact"&gt;&lt;span class="name foo"&gt;hij1nx&lt;/span&gt;&lt;p class="title"&gt;Leet 
+Developer&lt;/p&gt;&lt;/li&gt;&lt;/ul&gt;
+welder: DEBUG: SET: "title" : "manhattan" on &lt;p class="title"&gt;Leet 
+Developer&lt;/p&gt;
+welder: DEBUG: RESULT: &lt;ul id="contacts" class="contacts"&gt;&lt;li class="contact"&gt;&lt;span 
+class="name foo"&gt;hij1nx&lt;/span&gt;&lt;p class="title"&gt;manhattan&lt;/p&gt;&lt;/li&gt;&lt;/ul&gt;
+</pre></div></div></li><li class="testcase"><div class="name">test_sanity</div><div class="classname">test.test_welder.TestWelder</div><div class="time">0</div></li><li class="testcase"><div class="name">test_unmatched_selectors</div><div class="classname">test.test_welder.TestWelder</div><div class="time">0</div><div class="error"><div class="type">exceptions.TypeError</div><div class="message">Only processing instructions and comments can be siblings of the root element
+</div><div class="log"><pre>
+welder: DEBUG: STRATEGY: SequenceDataStrategy for ".contact" : "({'x0x1h': 'code exploder', 
+'x01h': 'hij1nx'}, {'name': 'tmpvar', 'x0x1h': 'code wrangler'})" on "&lt;div id="contacts-none"&gt;&lt;ul 
+class="contacts"&gt;&lt;li class="contact"&gt;&lt;span class="name"&gt;My Name&lt;/span&gt;&lt;p class="title"&gt;Leet 
+Developer&lt;/p&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;" with {}
+welder: DEBUG: STRATEGY: MappingDataStrategy for ".contact" 
+: "{'x0x1h': 'code exploder', 'x01h': 'hij1nx'}" on "&lt;div id="contacts-none"&gt;&lt;ul 
+class="contacts"&gt;&lt;li class="contact"&gt;&lt;span class="name"&gt;My Name&lt;/span&gt;&lt;p class="title"&gt;Leet 
+Developer&lt;/p&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;" with {}
+welder: DEBUG: SELECT: x0x1h from &lt;div 
+id="contacts-none"&gt;&lt;ul class="contacts"&gt;&lt;li class="contact"&gt;&lt;span class="name"&gt;My Name&lt;/span&gt;&lt;p 
+class="title"&gt;Leet Developer&lt;/p&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;
+welder: DEBUG: SELECT: x01h from &lt;div 
+id="contacts-none"&gt;&lt;ul class="contacts"&gt;&lt;li class="contact"&gt;&lt;span class="name"&gt;My Name&lt;/span&gt;&lt;p 
+class="title"&gt;Leet Developer&lt;/p&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;
+welder: DEBUG: RESULT: &lt;div 
+id="contacts-none"&gt;&lt;ul class="contacts"&gt;&lt;li class="contact"&gt;&lt;span class="name"&gt;My Name&lt;/span&gt;&lt;p 
+class="title"&gt;Leet Developer&lt;/p&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;
+</pre></div></div></li></ul></div></div><script type="text/javascript" src="https://www.google.com/jsapi?key=ABQIAAAAxpQzj0cQbWdgCGNnzurdJxR5vmDMjgQTfK2ZmREKQWlPDUVCsRTZLizJDsRRFLOXNvczT7zBnsTDqA"></script><script type="text/javascript">
+                    google.load('jquery', "1");
+                    google.load('jqueryui', "1");
+
+                    jQuery(document).ready(function($) {
+                        $('button').button();
+                    });
+                </script></body></html>
