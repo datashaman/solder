@@ -11,7 +11,7 @@ endif
 ifdef REPORT_HOME
 	REPORT = $(REPORT_HOME)
 else
-	REPORT = reports
+	REPORT = report
 endif
 
 all: test

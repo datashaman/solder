@@ -1,38 +1,47 @@
-jQuery.fn.solder = function(source, map) {
-    var othermap = map;
+jQuery.fn.solder = function(source) {
+    link_to = function(href, text) {
+        return jQuery('<a href="' + href + '">' + text + '</a>').get(0);
+    }
+
+    email_to = function(email, text) {
+        if(typeof text == "undefined")
+            text = email;
+        return jQuery('<a href="mailto:' + email + '">' + text + '</a>').get(0);
+    }
+
+    generate_data = function(scripts, record) {
+        for(name in scripts) {
+            script = scripts[name];
+            record[name] = eval(script);
+        }
+        return record;
+    }
+
+    index = this.index();
+    parent = this.parent();
+    original = this.remove();
+
+    set_value = function(el, value) {
+      if(el.tagName == 'INPUT') {
+        jQuery(el).val(value);
+      } else {
+        jQuery(el).html(value);
+      }
+    };
+
     return jQuery(this).each(function() {
-        var that = this;
         jQuery.getJSON(source, {no_cache: Math.random}, function(data) {
-            jQuery.each(data.rows, function(index, row) {
-                map: function(parent, element, key, value) {
-                    console.log(element);
-                    switch(key) {
-                        case 'username':
-                            value = jQuery(scripts.link_to(value))[0];
-                        break;
+            jQuery(data.records).each(function(index, record) {
+                element = original.clone();
+                parent.append(element);
 
-                        case 'email':
-                            value = jQuery(scripts.email_to(value))[0]
-                        break;
-                    }
+                record = generate_data(data.scripts, record);
 
-                    if(typeof othermap != 'function')
-                        return value;
-
-                    console.log('here with ' + this + ' and ' + that);
-
-                    return othermap(parent, element, key, value);
+                for(name in record) {
+                    value = record[name];
+                    element.find('.'+name).each(function(index, el) { set_value(el, value); });
                 }
             });
         });
     });
 };
-
-scripts = {
-    link_to: function(v) {
-        return $('<a href="' + v.url + '">' + v.username + '</a>').html();
-    },
-    email_to: function(v) {
-        return $('<a href="mailto:' + v.email + '">' + v.email + '</a>').html();
-    }
-}

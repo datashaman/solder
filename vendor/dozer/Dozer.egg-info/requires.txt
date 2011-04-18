@@ -1,3 +1,0 @@
-Paste>=1.6
-WebOb>=0.9.2
-mako

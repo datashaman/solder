@@ -2,11 +2,11 @@ import simplejson as json
 from lxml.etree import tostring
 from pyquery import PyQuery
 
-from welder import weld as w
+from welder import weld
 
 def pyquery_weld(data, config={}):
     if len(this):
-        w(this[0], data, config)
+        weld(this[0], data, config)
     return this
 
 PyQuery.fn.weld = pyquery_weld
@@ -46,35 +46,14 @@ def render(template, data, weld=True, layout='layout'):
 
             script = t('<script id="welds" type="text/javascript"></script>')
             text = """
-            require(["jquery", '/scripts/solder.js'], function($) {
-                $(function() {
+                jQuery(document).ready(function($) {
             """
 
-            if 'scripts' in data:
-                text += """
-                    function solder(p, e, k, v) {
-                """
-
-                for name, scr in data['scripts'].items():
-                    text += """
-                        if(k=='%s') return %s;
-                    """ % (name, scr)
-
-                text += """
-                        return v;
-                    }
-                """
-
-                map_func = ', solder'
-            else:
-                map_func = ''
-
             for source in sources:
-                text += "$('%s').solder('%s'" % source + map_func + ");"
+                text += "$('%s').solder('%s');" % source
 
             text += """
                 });
-            });
             """
             script.text(text)
             t_body.append(script)

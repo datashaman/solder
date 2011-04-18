@@ -1,4 +1,0 @@
-recursive-include dozer/media *
-recursive-include dozer/templates *
-include LICENSE
-include CHANGELOG

@@ -6,22 +6,22 @@ from webhelpers.html.tags import link_to
 
 from audit import Audit
 
-class Permission(Audit, models.Model):
-    name = models.Attribute(required=True, unique=True)
-    label = models.Attribute(required=True, unique=True)
+class Permission(models.Model):
+    name = models.Attribute(required=True, unique=True, label='Name')
+    label = models.Attribute(required=True, unique=True, label='Label')
 
-class Group(Audit, models.Model):
-    name = models.Attribute(required=True, unique=True)
-    label = models.Attribute(required=True, unique=True)
-    permissions = models.ListField(Permission)
+class Group(models.Model):
+    name = models.Attribute(required=True, unique=True, label='Name')
+    label = models.Attribute(required=True, unique=True, label='Name')
+    permissions = models.ListField(Permission, label='Permissions')
 
-class User(Audit, models.Model):
-    username = models.Attribute(required=True, unique=True)
-    password = models.Attribute(required=True)
-    email = models.Attribute(required=True, unique=True)
-    name = models.Attribute(required=True)
+class User(models.Model):
+    username = models.Attribute(required=True, unique=True, label='Username')
+    password = models.Attribute(required=True, label='Password')
+    email = models.Attribute(required=True, unique=True, label='Email')
+    name = models.Attribute(required=True, label='Name')
 
-    groups = models.ListField(Group)
+    groups = models.ListField(Group, label='Groups')
 
     def __init__(self, *args, **kwargs):
         super(User, self).__init__(*args, **kwargs)

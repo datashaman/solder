@@ -2,6 +2,7 @@
 *.ini
 *.cfg
 
+funkload.*
 /tags
 /solder.egg-info/
 /solder.egg-info/paste_deploy_config.ini_tmpl
@@ -22,5 +23,5 @@
 .hg*
 /solder/build
 /solder/public/styles
+/solder/public/images/icons/source
 /vendor/dozer
-funkload.*
